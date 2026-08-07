@@ -3712,6 +3712,21 @@ initOptionsScreen
 		li		a1,6
 		jal		writeStr
 		nop
+		
+		; 显示当前连发速度
+		lbu		t8,turboSpeedIdx
+		la		a0,turboSpeedMsg0
+		beqz	t8,showTurboSpeedMsg
+		nop
+		la		a0,turboSpeedMsg1
+		li		at,1
+		beq		t8,at,showTurboSpeedMsg
+		nop
+		la		a0,turboSpeedMsg2
+showTurboSpeedMsg:
+		li		a1,8
+		jal		writeStr
+		nop
 
 		la		a0,optionsEnd
 		li		a1,18
@@ -4291,6 +4306,57 @@ optionScreenAdjust
 
 		lw		ra,$0010(sp)
 		li		v0,$0
+		jr		ra
+		addiu	sp,sp,$14
+
+;------------------------------------------
+optionTurboSpeed
+;  按 START 循环切换连发速度
+;------------------------------------------
+		subiu	sp,sp,$14
+		sw		ra,$0010(sp)
+
+		lbu		t8,turboSpeedIdx
+		addiu	t8,t8,1
+		li		at,3
+		bne		t8,at,noTurboSpeedWrap
+		nop
+		li		t8,0
+noTurboSpeedWrap:
+		sb		t8,turboSpeedIdx
+
+		; 设置 turboMax 为 速度=idx+1
+		addiu	a0,t8,1
+		la		t9,turboMax
+		sb		a0,0(t9)
+		sb		a0,1(t9)
+		sb		a0,2(t9)
+		sb		a0,3(t9)
+
+		; 更新屏幕上的速度文字
+		la		a0,turboSpeedMsg0
+		beqz	t8,turboSpeedMsgDone
+		nop
+		la		a0,turboSpeedMsg1
+		li		at,1
+		beq		t8,at,turboSpeedMsgDone
+		nop
+		la		a0,turboSpeedMsg2
+turboSpeedMsgDone:
+		li		a1,8
+		jal		writeStr
+		nop
+
+		jal		VSync
+		nop
+		li		a0,TEXT_PRIM_ADDR
+		jal		gpuDMAlist
+		nop
+		jal		gpuSync
+		nop
+
+		lw		ra,$0010(sp)
+		li		v0,0			; 返回 0，菜单继续
 		jr		ra
 		addiu	sp,sp,$14
 
@@ -9138,7 +9204,7 @@ dw	$00000008,	romSelect_start
 ;dw	$00000001,	romSelect_colors
 dw	$00000000
 
-TOTAL_NUM_OPTIONS = 4
+TOTAL_NUM_OPTIONS = 5
 
 align 4
 menu_Options
@@ -9175,11 +9241,13 @@ dw	$00008000,	gg_delLetter
 dw	$00000000
 
 optionsJumpTable
-dw	optionGameGenie, optionButtonConfig, optionScreenAdjust, optionReturn
+dw	optionGameGenie, optionButtonConfig, optionScreenAdjust, optionTurboSpeed, optionReturn
 
 romMenuSelIndex		db	0
 optionsSelPos		db	0
 saveSelPos			db	0
+
+turboSpeedIdx		db	1	; 0=快(1) 1=中(2) 2=慢(3)
 
 GGchars				db	"APZLGITYEOXUKSVN"
 
@@ -9292,6 +9360,10 @@ options1	db "           Game Genie           "
 options2	db "         Button Config          "
 options3	db "         Screen Adjust          "
 optionsEnd	db "       Back to Game Menu        "
+
+turboSpeedMsg0		db	"         Turbo Speed: 1         "	; 快
+turboSpeedMsg1		db	"         Turbo Speed: 2         "	; 中
+turboSpeedMsg2		db	"         Turbo Speed: 3         "	; 慢
 
 screenPosMsg1	db "   Position screen with D-pad   "
 screenPosMsg2	db "   Press START when finished    "
