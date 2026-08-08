@@ -19,7 +19,7 @@ The last version released by Blomquist was 1.3.3-WIP1.
 Due to a series of circumstances, the project was discontinued.
 It was, at that point, a dead-end, since the source code for the project was not public.
 In 2008, the original author released source code for version 1.3.2, under the GPL license on his website, as he was no longer planning to work on it due to having moved on, so that an interested person could start to make improvements to the emulator. Unfortunately nobody started to work again on the emulator and the emulator sat unmaintained until 2015, until being picked up again.
-Then it is abandoned again, untill now... 
+Then it was abandoned again, untill now... 
 It is now continued with vibe coding using Deep Seek V4 Flash.
 
 A note: source code for 1.3.3-WIP1 was never released, as it was probably lost.
