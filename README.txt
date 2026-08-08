@@ -5,7 +5,7 @@
 /___/\__/  /_/ /_/ /_/_/\__, /_/ /_/\__/  /_____/\___/  /_/ |_/_____//____/  
                        /____/     
 
-Version 1.3.4
+Version 1.3.5
 
 It Might be NES (imbNES) is a Nintendo Entertainment System (NES) emulator for the Sony PlayStation.
 It allows NES games to be played on a Sony PlayStation console.
@@ -19,6 +19,8 @@ The last version released by Blomquist was 1.3.3-WIP1.
 Due to a series of circumstances, the project was discontinued.
 It was, at that point, a dead-end, since the source code for the project was not public.
 In 2008, the original author released source code for version 1.3.2, under the GPL license on his website, as he was no longer planning to work on it due to having moved on, so that an interested person could start to make improvements to the emulator. Unfortunately nobody started to work again on the emulator and the emulator sat unmaintained until 2015, until being picked up again.
+Then it is abandoned again, untill now... 
+It is now continued with vibe coding using Deep Seek V4 Flash.
 
 A note: source code for 1.3.3-WIP1 was never released, as it was probably lost.
 
@@ -86,7 +88,7 @@ To return to the game selection menu, press L1+R1+START+SELECT on the first cont
 +---------------+
 
 The emulator supports mappers 0, 1, 2, 3, 4, 7, 9, 10, 11, 33, 34, 38, 66, 70, 71, 79,
-87, 140, 180 and 185.
+87, 140, 180, 185 and 189.
 Not all games are guaranteed to work correctly, and some games may have graphical glitches.
 
 +-------------+
@@ -101,9 +103,5 @@ The MIPS assembly language dialect used by imbNES is the one that the SPASM asse
 While the dialect is far from being a golden standard, it is what the emulator was written in, and porting the emulator source code to use another dialect would be a serious undertaking, as it uses mnay unique features of the SPASM dialect.
 It does not take much effort to become familiar with the SPASM dialect, but it has some strange and annoying quirks.
 There is no documentation about those quirks at the moment, so try to play it safe: do not bend the rules in new code, and pay attention to the delay slots, the assembler won't take care of them for you.
-
-You can report bug reports at my (nextvolume's) email: tails92@gmail.com
-
-Do not forget the official web-page: http://unhaut.fav.cc/imbnes
 
 Enjoy!
